@@ -28,8 +28,9 @@
         </form>
       </li>
       <li>
-        <form action="/users/<%= user.id %>/stories/new">
+        <form action="/stories/new">
           <input type="submit" value="Add a new story">
+          <input type="hidden" name="user_to_add_story_to" value="<%= user.id %>">
         </form>
       </li>
     </ul>

@@ -3,7 +3,9 @@
     Name of Story - <%= story.name %>
   </p>
   <p>
-    <a href="/users/<%= @user.id %>/stories/<%= story.id %>/edit">Edit this story</a>
+    <form action="/stories/<%= story.id %>/edit">
+      <input type="hidden" name="user_to_edit_story_of" value="<%= @user.id %>">
+      <input type="submit" value="Edit this story">
   </p>
   <p>
     <form action="/users/<%= @user.id %>/stories/<%= story.id %>" method="post">

@@ -5,13 +5,16 @@ get "/users/:id/stories" do
   erb :"/stories/index"
 end
 
-
-get "/users/:id/stories/new" do
-  @user = User.find(params["id"])
-  if session["user_id"] == @user.id
-    erb :"/stories/new"
+get "/stories/new" do
+  if session["user_id"]
+    if session["user_id"] == params["user_to_add_story_to"].to_i
+      @user = User.find(session["user_id"])
+      erb :"/stories/new"
+    else
+      "You're not logged in as the correct user"
+    end
   else
-    "You must be signed in to do that."
+    "You're not logged in"
   end
 end
 
@@ -22,13 +25,17 @@ post "/users/:id/stories" do
   redirect "/users"
 end
 
-get "/users/:id/stories/:story_id/edit" do
-  @user = User.find(params["id"])
-  if session["user_id"] == @user.id
-    @story = Story.find(params["story_id"])
-    erb :"/stories/edit"
+get "/stories/:story_id/edit" do
+  if session["user_id"]
+    if session["user_id"] == params["user_to_edit_story_of"].to_i
+      @user = User.find(session["user_id"])
+      @story = Story.find(params["story_id"])
+      erb :"/stories/edit"
+    else
+      "You're not logged in as the correct user"
+    end
   else
-    "You must be signed in to do that."
+    "You're not logged in"
   end
 end
 
