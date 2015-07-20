@@ -4,6 +4,7 @@ require "pry"
 require "active_record"
 require "sinatra"
 require "bcrypt"
+require 'sinatra/cross_origin'
 
 require_relative "models/user.rb"
 require_relative "models/story.rb"
