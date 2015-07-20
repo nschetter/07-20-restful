@@ -29,3 +29,14 @@ put "/users/:id/stories/:story_id" do
   @story.save
   redirect "/users"
 end
+
+delete "/users/:id/stories/:story_id" do
+  @story = Story.find(params["story_id"])
+  @story.delete
+  redirect :"/users"
+end
+
+get "/stories/:id" do
+  @story = Story.find(params["id"])
+  erb :"/stories/show"
+end

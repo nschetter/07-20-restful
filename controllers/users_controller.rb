@@ -6,7 +6,7 @@ end
 # list users
 get "/users" do
   @users = User.all
-  erb :"home"
+  erb :"users/index"
 end
 
 # new user
@@ -33,7 +33,7 @@ end
 delete "/users/:id" do
   @user = User.find(params["id"])
   @user.delete
-  redirect "/"
+  redirect "/users"
 end
 
 # edit user
@@ -53,7 +53,7 @@ put "/users/:id" do
     @user.password = password
   end
   @user.save
-  redirect "/"
+  redirect "/users"
 end
 
 # show a user

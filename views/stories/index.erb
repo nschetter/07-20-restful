@@ -5,4 +5,13 @@
   <p>
     <a href="/users/<%= @user.id %>/stories/<%= story.id %>/edit">Edit this story</a>
   </p>
+  <p>
+    <form action="/users/<%= @user.id %>/stories/<%= story.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete this story?">
+    </form>
+  </p>
+  <p>
+    <a href="/stories/<%= story.id %>">View this story</a>
+  </p>
 <% end %>
