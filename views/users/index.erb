@@ -12,7 +12,8 @@
        </form>
       </li>
       <li>
-        <form action="/users/<%= user.id %>/edit">
+        <form action="/users/edit_profile">
+          <input type="hidden" name="user_to_edit" value="<%= user.id %>">
           <input type="submit" value="Edit this user">
         </form>
       </li>

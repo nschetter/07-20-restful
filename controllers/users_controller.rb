@@ -58,6 +58,19 @@ get "/users/:id/edit" do
   end
 end
 
+get "/users/edit_profile" do
+  if session["user_id"]
+    if session["user_id"] == params["user_to_edit"].to_i
+      @user = User.find(params["user_to_edit"])
+      erb :"/users/edit"
+    else
+      "You're not logged in as the correct user"
+    end
+  else
+    "You're not logged in"
+  end
+end
+
 # update user
 put "/users/:id" do
   @user = User.find(params["id"])
