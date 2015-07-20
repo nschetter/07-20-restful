@@ -5,9 +5,14 @@ get "/users/:id/stories" do
   erb :"/stories/index"
 end
 
+
 get "/users/:id/stories/new" do
   @user = User.find(params["id"])
-  erb :"/stories/new"
+  if session["user_id"] == @user.id
+    erb :"/stories/new"
+  else
+    "You must be signed in to do that."
+  end
 end
 
 post "/users/:id/stories" do
@@ -19,8 +24,12 @@ end
 
 get "/users/:id/stories/:story_id/edit" do
   @user = User.find(params["id"])
-  @story = Story.find(params["story_id"])
-  erb :"/stories/edit"
+  if session["user_id"] == @user.id
+    @story = Story.find(params["story_id"])
+    erb :"/stories/edit"
+  else
+    "You must be signed in to do that."
+  end
 end
 
 put "/users/:id/stories/:story_id" do
@@ -32,8 +41,12 @@ end
 
 delete "/users/:id/stories/:story_id" do
   @story = Story.find(params["story_id"])
-  @story.delete
-  redirect :"/users"
+  if session["user_id"] == @user.id
+    @story.delete
+    redirect :"/users"
+  else
+    "You must be signed in to do that."
+  end
 end
 
 get "/stories/:id" do

@@ -1,3 +1,5 @@
+set :sessions => true
+
 # home
 get "/" do
   redirect "/users"
@@ -29,17 +31,27 @@ post "/users" do
   end
 end
 
+if session["user_id"] == @user.id
+
 # delete user
 delete "/users/:id" do
   @user = User.find(params["id"])
-  @user.delete
-  redirect "/users"
+  if session["user_id"] == @user.id
+    @user.delete
+    redirect "/users"
+  else
+    "You can not delete. You must be signed in as this user."
+  end
 end
 
 # edit user
 get "/users/:id/edit" do
   @user = User.find(params["id"])
-  erb :"/users/edit"
+  if session["user_id"] == @user.id
+    erb :"/users/edit"
+  else
+    "Fail"
+  end
 end
 
 # update user
@@ -56,8 +68,27 @@ put "/users/:id" do
   redirect "/users"
 end
 
+get "/users/login" do
+  erb :"/users/login"
+end
+
+get "/users/logout" do
+  session["user_id"] = nil
+  redirect "/users"
+end
+
 # show a user
 get "/users/:id" do
   @user = User.find(params["id"])
   erb :"users/show"
+end
+
+post "/users/login" do
+  user = User.find_by(email: params["email"])
+  if BCrypt::Password.new(user.password) == params["password"]
+    session["user_id"] = user.id
+    redirect "/users"
+  else
+    erb :"/users/login"
+  end
 end
