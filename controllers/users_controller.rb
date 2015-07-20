@@ -31,8 +31,6 @@ post "/users" do
   end
 end
 
-if session["user_id"] == @user.id
-
 # delete user
 delete "/users/:id" do
   @user = User.find(params["id"])
