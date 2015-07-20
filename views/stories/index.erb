@@ -8,8 +8,9 @@
       <input type="submit" value="Edit this story">
   </p>
   <p>
-    <form action="/users/<%= @user.id %>/stories/<%= story.id %>" method="post">
+    <form action="/stories/<%= story.id %>" method="post">
       <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="user_to_delete_story_of" value="<%= @user.id %>">
       <input type="submit" value="Delete this story?">
     </form>
   </p>

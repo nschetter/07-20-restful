@@ -46,11 +46,15 @@ put "/users/:id/stories/:story_id" do
   redirect "/users"
 end
 
-delete "/users/:id/stories/:story_id" do
-  @story = Story.find(params["story_id"])
-  if session["user_id"] == @user.id
-    @story.delete
-    redirect :"/users"
+delete "/stories/:story_id" do
+  if session["user_id"]
+    if session["user_id"] == params["user_to_delete_story_of"].to_i
+      @story = Story.find(params["story_id"])
+      @story.delete
+      redirect "/users"
+    else
+      "You're not logged in as the correct user"
+    end
   else
     "You must be signed in to do that."
   end
