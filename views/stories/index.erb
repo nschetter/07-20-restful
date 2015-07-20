@@ -2,4 +2,7 @@
   <p>
     Name of Story - <%= story.name %>
   </p>
+  <p>
+    <a href="/users/<%= @user.id %>/stories/<%= story.id %>/edit">Edit this story</a>
+  </p>
 <% end %>

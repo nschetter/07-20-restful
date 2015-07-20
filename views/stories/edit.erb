@@ -1,0 +1,5 @@
+<form action="/users/<%= @user.id %>/stories/<%= @story.id %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <input type="text" name="story[name]" value="<%= @story.name %>">
+  <input type="submit" value="Edit this story">
+</form>
