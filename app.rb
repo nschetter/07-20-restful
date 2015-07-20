@@ -5,6 +5,9 @@ require "active_record"
 require "sinatra"
 require "bcrypt"
 
+require_relative "models/user.rb"
+require_relative "controllers/users_controller.rb"
+
 configure :development do
   require "sqlite3"
   ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'restful.db')
