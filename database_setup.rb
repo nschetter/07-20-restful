@@ -5,3 +5,10 @@ unless ActiveRecord::Base.connection.table_exists?(:users)
     table.text :password
   end
 end
+
+unless ActiveRecord::Base.connection.table_exists?(:stories)
+  ActiveRecord::Base.connection.create_table :stories do |table|
+    table.text :name
+    table.integer :user_id
+  end
+end
