@@ -1,13 +1,12 @@
 # home
 get "/" do
-  @users = User.all
-  erb :"home"
+  redirect "/users"
 end
 
 # list users
 get "/users" do
-  @user = User.all
-  
+  @users = User.all
+  erb :"home"
 end
 
 # new user
@@ -59,4 +58,6 @@ end
 
 # show a user
 get "/users/:id" do
+  @user = User.find(params["id"])
+  erb :"users/show"
 end
