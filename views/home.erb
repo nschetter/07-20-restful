@@ -26,6 +26,11 @@
           <input type="submit" value="View this user's stories">
         </form>
       </li>
+      <li>
+        <form action="/users/<%= user.id %>/stories/new">
+          <input type="submit" value="Add a new story">
+        </form>
+      </li>
     </ul>
   <% end %>
    

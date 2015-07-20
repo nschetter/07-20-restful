@@ -1,0 +1,6 @@
+Add a story for <%= @user.name %>
+
+<form action="/users/<%= @user.id %>/stories" method = "post">
+  <input type="text" name="story[name]" placeholder="name">
+  <input type="submit" value="Add this story">
+</form>
