@@ -1,0 +1,21 @@
+<p><h2>Main Menu</h2></p>
+ 
+ <% @users.each do |user|%>
+   <ul>
+     <li>
+       <%= user.name %>
+     </li>
+     <li>
+       <form action="/users/<%= user.id %>" method="post">
+         <input type="hidden" name="_method" value="delete">
+         <input type="submit" value = "Delete this user">
+       </form>
+      </li>
+      <li>
+        <form action="/users/<%= user.id %>/edit">
+          <input type="submit" value="Edit this user">
+        </form>
+      </li>
+    </ul>
+  <% end %>
+   

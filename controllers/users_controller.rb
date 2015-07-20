@@ -1,3 +1,9 @@
+# home
+get "/" do
+  @users = User.all
+  erb :"home"
+end
+
 # list users
 get "/users" do
   @user = User.all
@@ -6,7 +12,7 @@ end
 
 # new user
 get "/users/new" do
-  @new_user = User.new
+  @user = User.new
   erb :"users/new"
 end
 
@@ -16,9 +22,9 @@ post "/users" do
   email = params["user"]["email"]
   prepassword = params["user"]["password"]
   password = BCrypt::Password.create(prepassword)
-  @new_user = User.create({"name" => name, "email" => email, "password" => password})
-  if @new_user.valid?
-    redirect "/users/#{@new_user.id}"
+  @user = User.create({"name" => name, "email" => email, "password" => password})
+  if @user.valid?
+    redirect "/users/#{@user.id}"
   else
     erb :"/users/new"
   end
@@ -26,14 +32,29 @@ end
 
 # delete user
 delete "/users/:id" do
+  @user = User.find(params["id"])
+  @user.delete
+  redirect "/"
 end
 
 # edit user
 get "/users/:id/edit" do
+  @user = User.find(params["id"])
+  erb :"/users/edit"
 end
 
 # update user
 put "/users/:id" do
+  @user = User.find(params["id"])
+  @user.name = params["user"]["name"]
+  @user.email = params["user"]["email"]
+  if params["user"]["password"] != ""
+    prepassword = params["user"]["password"]
+    password = BCrypt::Password.create(prepassword)
+    @user.password = password
+  end
+  @user.save
+  redirect "/"
 end
 
 # show a user
